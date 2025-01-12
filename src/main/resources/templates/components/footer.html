@@ -1,0 +1,98 @@
+<footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer_fragment">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/main.bundle.js}"></script>
+
+	<th:block th:if="${script != null}"><th:block th:replace="${script}"/></th:block>
+	<input id="csrf" th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}"/>
+	<input id="context" name="context" type="hidden" th:value="@{/}"/>
+	<script>
+		$("#logoutLogo").mouseover(function(){
+			$("#logoutLogo").removeClass("bi-door-closed-fill");  
+			$("#logoutLogo").addClass("bi-door-open-fill");  
+		}).mouseout(function(){
+			$("#logoutLogo").addClass("bi-door-closed-fill");  
+			$("#logoutLogo").removeClass("bi-door-open-fill");  
+		});
+
+		$("#taskSaveIcon").mouseover(function(){
+			if(view.view.homeView.homeEntity.containsType != "PROJECT")
+				return;
+
+			if($("#uuid").val() != "" ){
+				$("#taskSaveIcon").removeClass("bi-floppy");  
+				$("#taskSaveIcon").addClass("bi-floppy-fill");  
+			}
+		}).mouseout(function(){
+			if(view.view.homeView.homeEntity.containsType != "PROJECT")
+				return;
+
+			if($("#uuid").val() != "" ){
+				$("#taskSaveIcon").addClass("bi-floppy");  
+				$("#taskSaveIcon").removeClass("bi-floppy-fill");  
+			}
+		});
+
+		$("#taskAddIcon").mouseover(function(){
+			if(view.view.homeView.homeEntity.containsType != "PROJECT")
+				return;
+			
+			$("#taskAddIcon").removeClass("bi-plus-square");  
+			$("#taskAddIcon").addClass("bi-plus-square-fill");  
+		}).mouseout(function(){
+			if(view.view.homeView.homeEntity.containsType != "PROJECT")
+				return;
+			$("#taskAddIcon").addClass("bi-plus-square");  
+			$("#taskAddIcon").removeClass("bi-plus-square-fill");  
+		});
+
+		$("#taskRemoveIcon").mouseover(function(){
+			if(view.view.homeView.homeEntity.containsType != "PROJECT")
+				return;
+			
+			if($("#uuid").val() != "" ){
+				$("#taskRemoveIcon").removeClass("bi-trash3");  
+				$("#taskRemoveIcon").addClass("bi-trash3-fill");  
+			}
+		}).mouseout(function(){
+			if(view.view.homeView.homeEntity.containsType != "PROJECT")
+				return;
+			
+			if($("#uuid").val() != "" ){
+				$("#taskRemoveIcon").addClass("bi-trash3");  
+				$("#taskRemoveIcon").removeClass("bi-trash3-fill");  
+			}
+		});
+
+
+		$("#past1mIcon").mouseover(function(){
+			if(view.view.homeView.homeEntity.containsType == "MENU")
+				return;
+			
+			$("#past1mIcon").removeClass("bi-arrow-left-circle");  
+			$("#past1mIcon").addClass("bi-arrow-left-circle-fill");  
+		}).mouseout(function(){
+			if(view.view.homeView.homeEntity.containsType == "MENU")
+				return;
+			$("#past1mIcon").addClass("bi-arrow-left-circle");  
+			$("#past1mIcon").removeClass("bi-arrow-left-circle-fill");  
+		});
+
+
+		$("#future1mIcon").mouseover(function(){
+			if(view.view.homeView.homeEntity.containsType == "MENU")
+				return;
+			$("#future1mIcon").removeClass("bi-arrow-right-circle");  
+			$("#future1mIcon").addClass("bi-arrow-right-circle-fill");  
+		}).mouseout(function(){
+			if(view.view.homeView.homeEntity.containsType == "MENU")
+				return;
+			$("#future1mIcon").addClass("bi-arrow-right-circle");  
+			$("#future1mIcon").removeClass("bi-arrow-fight-circle-fill");  
+		});
+
+
+		
+		</script>
+	
+</footer>

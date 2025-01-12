@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{components/head :: head_fragment}"></head>
+
+
+<body>
+	<div th:replace="~{components/navbar }"></div>
+    <canvas id="canvas1" class="canvas" style="background-color:#FFFFFF;"></canvas>
+	<br>
+	
+	
+	<main>
+		<div class="container">
+		<button type="button" class="btn py-0 my-0" id="taskSave" onClick="saveTaskBar();" title="タスクを保存します"><i id="taskSaveIcon" class="bi bi-floppy" style="font-size: 2rem"></i></button>
+		<button type="button" class="btn py-0 my-0" id="taskAdd" onClick="addTaskBar();" title="新しいタスクを追加します"><i id="taskAddIcon" class="bi bi-plus-square"  style="font-size: 2rem"></i></button>
+		<button type="button" class="btn py-0 my-0" id="taskRemove" onClick="deleteTaskBar();" title="タスクを削除します"><i id="taskRemoveIcon" class="bi bi-trash3" style="font-size: 2rem"></i></button>
+		<button type="button" class="btn py-0 my-0" id="favo" onClick="pushFavo();" title="お気に入りに加えます"><i id="favoIcon" class="bi bi-star" style="font-size: 2rem"></i></button>
+		<button type="button" class="btn py-0 my-0" id="past1m" onClick="calendarPast1m();" title="カレンダを１か月広げます"><i id="past1mIcon" class="bi bi-arrow-left-circle" style="font-size: 2rem"></i></button>
+		<button type="button" class="btn py-0 my-0" id="future1m" onClick="calendarFuture1m();" title="カレンダを１か月広げます"><i id="future1mIcon" class="bi bi-arrow-right-circle" style="font-size: 2rem"></i></button>
+			<div class="border p-1" style="background-color: var(--bs-secondary-bg)">
+				<div class="row text-center pt-2">
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+						<div class="input-group">
+							<label for="uuid" class="input-group-text">uuid</label>
+							<input type="text" id="uuid" class="form-control" readonly />
+						</div>
+					</div>
+					
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+						<div class="input-group">
+							<label for="taskName" class="input-group-text">タスク名</label>
+							<input type="text" id="taskName" class="form-control" maxlength="27"/>
+						</div>
+					</div>
+					
+					<div class="col-sm-9 col-md-7 col-lg-5 col-xl-4">
+						<div class="input-group">
+							<label for="progress" class="input-group-text">予定期間</label>
+							<input type="text" id="planPeriodFrom" class="form-control" maxlength="10" />
+							<label class="input-group-text">～</label>
+							<input type="text" id="planPeriodTo" class="form-control" maxlength="10" />
+						</div>
+					</div>
+					
+					<div class="col-sm-4 col-md-5 col-lg-3 col-xl-2">
+						<div class="input-group">
+							<label for="progress" class="input-group-text">進捗率</label>
+							<input type="text" id="progress" class="form-control"/>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col-12">
+						<label for="memo" class="form-label">メモ</label>
+						<textarea id="memo" class="form-control" rows="6"></textarea><br>
+					</div>
+				</div>
+					
+				<input type="hidden" id="handleColor"/>
+				<input type="hidden" id="planColor" />
+				<input type="hidden" id="resultColor" />
+				<input type="hidden" id="favorites" />
+			</div>
+	   	</div>
+    </main>
+
+	<input type="hidden" id="bridgeBox" name="bridgeBox" th:value="${bridgeBox}"/><br>
+	
+	
+	<script th:replace="~{components/footer}"></script>
+	<script type="text/javascript" th:src="@{/js/home.js}"></script>
+	
+	
+</body>
+
+</html>

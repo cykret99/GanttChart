@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gnt.domain.mapper.TTaskBarMapper">
+
+	<select id="selectByGroupID" parameterType="String" resultType="com.gnt.domain.entity.TTaskBarEntity">
+		SELECT
+			* 
+		FROM t_task_bar
+        WHERE   group_uuid = #{groupID}
+        AND     delete_flg = '0'
+		;
+	</select>
+	
+	<update id="updatePlanDate"  parameterType="com.gnt.domain.entity.TTaskBarEntity">
+		UPDATE t_task_bar
+		SET
+		      plan_period_from = #{planPeriodFrom}
+		    , plan_period_to = #{planPeriodTo}
+		WHERE uuid = #{uuid}
+		;
+	</update>
+
+	<update id="updateTaskBar"  parameterType="com.gnt.domain.entity.TTaskBarEntity">
+		INSERT INTO t_task_bar (
+		      uuid
+		    , group_uuid
+		    , task_name
+		    , progress
+		    , plan_period_from
+		    , plan_period_to
+		    , memo
+		    , handle_color
+		    , plan_color
+		    , result_color
+		    , delete_flg
+		    , create_user_id
+		    , create_date
+		    , modify_user_id
+		    , modify_date
+		) VALUES (
+		      #{uuid}
+		    , #{groupUuid}
+		    , #{taskName}
+		    , #{progress}
+		    , #{planPeriodFrom}
+		    , #{planPeriodTo}
+		    , #{memo}
+		    , #{handleColor}
+		    , #{planColor}
+		    , #{resultColor}
+		    , #{deleteFlg}
+		    , 'SYSTEM'
+		    , CURRENT_DATE
+		    , 'SYSTEM'
+		    , CURRENT_DATE
+		) ON CONFLICT(uuid)
+		DO UPDATE
+		SET
+		      group_uuid        = #{groupUuid}
+		    , task_name         = #{taskName}
+		    , progress          = #{progress}
+		    , plan_period_from  = #{planPeriodFrom}
+		    , plan_period_to    = #{planPeriodTo}
+		    , memo              = #{memo}
+		    , handle_color      = #{handleColor}
+		    , plan_color        = #{planColor}
+		    , result_color      = #{resultColor}
+		    , delete_flg        = #{deleteFlg}
+		    , modify_user_id    = 'SYSTEM'
+		    , modify_date       = CURRENT_DATE
+		;
+	</update>
+
+
+</mapper>

@@ -1,0 +1,24 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				</ul>
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item">
+						<i class="bi bi-person-circle" style="font-size: 2rem"></i>
+					</li>
+					<li class="nav-item ms-1 pt-3">
+						 <div sec:authentication="principal.user.familyName"></div>
+					 </li>
+					<li class="nav-item">
+						<form  th:action="@{/logout}" method="post">
+							<button type="submit" class="btn py-0"><i id="logoutLogo" class="bi bi-door-closed-fill"  style="font-size: 2rem" title="ログアウト"></i></button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+

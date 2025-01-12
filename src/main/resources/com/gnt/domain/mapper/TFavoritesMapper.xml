@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gnt.domain.mapper.TFavoritesMapper">
+
+	<select id="select" resultType="com.gnt.domain.entity.TFavoritesEntity">
+		SELECT 
+			* 
+		FROM t_favorites AS f
+		WHERE f.login_id = #{loginID} AND group_uuid = #{uuid}
+		LIMIT 1
+		;
+	</select>
+
+	<select id="selectCnt" resultType="Integer">
+		SELECT 
+			count(*) 
+		FROM t_favorites AS f
+		WHERE f.login_id = #{loginID} AND group_uuid = #{uuid}
+		;
+	</select>
+
+	<insert id="insert" parameterType="com.gnt.domain.entity.TFavoritesEntity">
+		INSERT INTO t_favorites (
+		    login_id
+		    ,group_uuid
+		    ,create_user_id
+		    ,create_date
+		) VALUES (
+		      #{loginId}
+		    , #{groupUuid}
+		    , 'SYSTEM'
+		    , CURRENT_DATE
+		);
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM t_favorites
+		WHERE login_id = #{loginID} AND group_uuid = #{uuid}
+		;
+	</delete>
+
+
+
+</mapper>

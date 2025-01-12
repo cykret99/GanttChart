@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gnt.domain.mapper.MGroupMapper">
+
+	<select id="selectByAuth" parameterType="String" resultType="com.gnt.domain.entity.MGroupEntity">
+		SELECT 
+			g.* 
+		FROM m_group AS g
+		WHERE EXISTS (
+		    SELECT 1
+		    FROM   t_auth AS a
+		    WHERE g.LEVEL = 1
+		    AND   g.uuid = a.group_uuid
+		    AND   a.login_id = #{loginID}
+		)
+		;
+	</select>
+
+	<select id="selectParentByAuth" parameterType="String" resultType="com.gnt.domain.entity.MGroupEntity">
+		SELECT 
+			g.* 
+		FROM m_group AS g
+		WHERE EXISTS (
+		    SELECT 1
+		    FROM   t_auth AS a
+		    WHERE g.LEVEL = 1
+		    AND   g.uuid = a.group_uuid
+		    AND   a.login_id = #{loginID}
+		)
+		UNION 
+		SELECT 
+			g.* 
+		FROM m_group AS g
+		WHERE EXISTS (
+		    SELECT 1
+		    FROM   t_auth AS a
+		    INNER JOIN  m_group AS sub
+		    ON a.group_uuid = sub.uuid
+		    WHERE g.level = 1
+		    AND   g.uuid = sub.parent_uuid 
+		    AND   a.login_id = #{loginID}
+		)
+		;
+	</select>
+
+	<select id="selectByFavorites" parameterType="String" resultType="com.gnt.domain.entity.MGroupEntity">
+		SELECT 
+			g.* 
+			,CASE WHEN level=1 THEN 'GROUP' ELSE 'PROJECT' END AS contenarType
+		FROM m_group AS g
+		INNER JOIN t_favorites AS f
+		ON g.uuid = f.group_uuid
+		INNER JOIN t_auth AS a
+		ON  f.group_uuid = a.group_uuid
+		AND f.login_id = a.login_id
+		WHERE a.login_id = #{loginId}
+		ORDER BY level, seq_id
+		;
+	</select>
+
+	<select id="selectByUuid" parameterType="String" resultType="com.gnt.domain.entity.MGroupEntity">
+		SELECT 
+			g.* 
+		FROM m_group AS g
+		WHERE g.uuid = #{uuid}
+		;
+	</select>
+
+	<select id="selectByParentUuid" parameterType="String" resultType="com.gnt.domain.entity.MGroupEntity">
+		SELECT
+		    *
+		FROM    m_group
+		WHERE   parent_uuid = #{uuid}
+		;
+	</select>
+
+</mapper>

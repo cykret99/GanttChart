@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+    <style>
+      .canvas{
+        width: 100%;
+        height: 400px;
+      }
+    </style>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+  </head>
+  <body onload="test()">
+    <canvas id="canvas1" class="canvas" style="background-color:#FFFFFF;"></canvas>
+    <!-- <script type="text/javascript" src="./dev/js/main.bundle.js"></script> -->
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+
+    <br>
+
+    <button onclick="test()"> button </button>
+    <button onclick="addTaskBar()"> addTaskBar </button>
+    <button onclick="updateTaskBar()"> updateTaskBar </button>
+    <input type="text" id="bridgeBox" /><br>
+    <main>
+      uuid        <input type="text" id="uuid" /><br>
+      taskName    <input type="text" id="taskName" /><br>
+      progress    <input type="text" id="progress" /><br>
+      planPeriodFrom <input type="text" id="planPeriodFrom" /><br>
+      planPeriodTo <input type="text" id="planPeriodTo" /><br>
+      memo        <textarea id="memo" ></textarea><br>
+      handleColor <input type="text" id="handleColor" /><br>
+      planColor   <input type="text" id="planColor" /><br>
+      resultColor <input type="text" id="resultColor" /><br>
+    </main>
+     
+    <input id="csrf" name="_csrf" type="hidden" value="qmWcKqshK2BplhnMHO0OoHHgQesIUzu6pPr5UBBAE6vZ9UHfmleqGp4UHlVEoSr0fsA6wxLXbIltZg6XnM3BM3MhIp-6lnXv">
+    <input id="context" name="context" type="hidden" value="/GanttChart/">
+
+    <script type="module">
+      import StageBase from './src/js/canvas/stage/StageBase.ts'
+      import MenuView from './src/js/canvas/view/MenuView.ts';
+      import HomeView from './src/js/canvas/view/HomeView.ts';
+
+      let stage;
+      let view;
+      window.getStage = () => {
+        return stage;
+      }
+      window.getView = () => {
+        return view;
+      }
+
+      window.dev = () => {
+        stage = new StageBase("canvas1");
+        let nw = new DrowContainerBase();
+        stage.drowMainContainer.addChild(nw);
+        stage.drowMainContainer.addChild(nw);
+        stage.drowStart();
+
+
+      }
+
+      window.test = () => {
+        stage = new StageBase("canvas1");
+        stage.drowStart();
+
+        let bridgeBox = document.getElementById('bridgeBox');
+        bridgeBox.value = '{"containsType":"PROJECT","viewUuid":"AAAAAAAA-0000-0000-0001-000000000001","role":null,"tabArray":[{"tabName":"Home","containsType":"MENU","uuid":"MENU"},{"tabName":"G1001","containsType":"PROJECT","uuid":"AAAAAAAA-0000-0000-0001-000000000001"}],"ganttchartForm":{"viewProjectID":"G1001","viewRole":null,"viewFromDate":1732369043111,"viewToDate":1740145043113,"taskBarArray":[{"seqId":36,"uuid":"TTTTTTTT-0000-0000-0000-000000000001","groupuid":null,"taskName":"要件定義","progress":1,"planPeriodFrom":"2025-01-01","planPeriodTo":"2025-01-05","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":37,"uuid":"TTTTTTTT-0000-0000-0000-000000000002","groupuid":null,"taskName":"基本設計","progress":0.5,"planPeriodFrom":"2025-01-06","planPeriodTo":"2025-01-08","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":38,"uuid":"TTTTTTTT-0000-0000-0000-000000000003","groupuid":null,"taskName":"詳細設計","progress":0,"planPeriodFrom":"2025-01-09","planPeriodTo":"2025-01-11","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":39,"uuid":"TTTTTTTT-0000-0000-0000-000000000004","groupuid":null,"taskName":"製造","progress":0,"planPeriodFrom":"2025-01-12","planPeriodTo":"2025-01-15","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":40,"uuid":"TTTTTTTT-0000-0000-0000-000000000005","groupuid":null,"taskName":"単体試験","progress":0,"planPeriodFrom":"2025-01-14","planPeriodTo":"2025-01-18","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":41,"uuid":"TTTTTTTT-0000-0000-0000-000000000006","groupuid":null,"taskName":"結合試験","progress":0,"planPeriodFrom":"2025-01-19","planPeriodTo":"2025-01-22","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":42,"uuid":"TTTTTTTT-0000-0000-0000-000000000007","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":43,"uuid":"TTTTTTTT-0000-0000-0000-000000000008","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":44,"uuid":"TTTTTTTT-0000-0000-0000-000000000009","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":45,"uuid":"TTTTTTTT-0000-0000-0000-000000000010","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":46,"uuid":"TTTTTTTT-0000-0000-0000-000000000011","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":47,"uuid":"TTTTTTTT-0000-0000-0000-000000000012","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":48,"uuid":"TTTTTTTT-0000-0000-0000-000000000013","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null},{"seqId":49,"uuid":"TTTTTTTT-0000-0000-0000-000000000014","groupuid":null,"taskName":"顧客受入れ","progress":0,"planPeriodFrom":"2025-01-23","planPeriodTo":"2025-01-25","memo":"メモ","handleColor":"#FFFFA0","planColor":"#00FF00","resultColor":"#0000FF","deleteFlg":"0","createUserId":"TEST","createDate":"2025-01-07 13:36:47","modifyUserId":"TEST","modifyDate":"2025-01-07 13:36:47","responsiblePerson":null}]},"menuForm":null}';
+//        view = new GanttChartView(stage);
+        view = new HomeView(stage);
+        stage.drowStart();
+        
+        view.init();
+//        view.getBridgeBox();
+        
+      }
+      window.addTaskBar = () =>{
+        view.addTaskBar('task a', new Date('2024/12/12'), new Date('2024/12/15'));
+      }
+      
+      window.updateTaskBar = () => {
+        view.updateTaskBarFromDisp();
+      }
+    </script>
+  </body>
+
+  </html>
